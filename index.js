@@ -4,15 +4,12 @@ root.innerHTML = '<h1>Generator zestawu węzłów "geo" z OSM</h1><input id="inp
 const arr = document.getElementById('arr');
 document.getElementById("ok").addEventListener('click', getData);
 let nodesIdTab = [];
-let nodesTab = [];
+//let nodesTab = [];
 
 function getData() {
     const idsData = document.getElementById("input").value;
     const tabData = idsData.split(' ');
-
     let nodeId;
-
-
     for (let i = 0; i < tabData.length; i++) {
         fetch(`https://www.openstreetmap.org/api/0.6/way/${tabData[i]}`)
             .then(res => res.text())
@@ -29,7 +26,7 @@ function getData() {
                             let node = xmldoc.getElementsByTagName('node')[0];
                             let lat = node.getAttribute('lat');
                             let lon = node.getAttribute('lon');
-                            nodesTab.push(`[${lat}, ${lon}]`);
+                           // nodesTab.push(`[${lat}, ${lon}]`);
                             arr.innerHTML += `[${lat}, ${lon}], `;
                         });
                 }
