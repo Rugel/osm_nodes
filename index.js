@@ -1,6 +1,6 @@
 
 const root = document.getElementById('root')
-root.innerHTML = '<h1>Generator tablicy węzłów z OSM</h1><input id="input" type="text"/><button id="ok">OK</button><div id="arr"></div>';
+root.innerHTML = '<h1>Generator zestawu węzłów "geo" z OSM</h1><input id="input" type="text"/><button id="ok">OK</button><div id="arr"><b>zestaw węzłów lini: <br/></b><br/></div>';
 const arr = document.getElementById('arr');
 document.getElementById("ok").addEventListener('click', getData);
 let nodesIdTab = [];
@@ -25,21 +25,16 @@ function getData() {
                     fetch(`https://www.openstreetmap.org/api/0.6/node/${nodeId}`)
                         .then(response => response.text())
                         .then(dane => new window.DOMParser().parseFromString(dane, "text/xml"))
-                        .then(xmldoc =>{let node = xmldoc.getElementsByTagName('node')[0];
-                        let lat = node.getAttribute('lat');
-                        let lon = node.getAttribute('lon');
-                    
-                        console.log(`[${lat}, ${lon}]`);
-                        nodesTab.push(`[${lat}, ${lon}]`);
-    
-                    });
-                        
+                        .then(xmldoc => {
+                            let node = xmldoc.getElementsByTagName('node')[0];
+                            let lat = node.getAttribute('lat');
+                            let lon = node.getAttribute('lon');
+                            nodesTab.push(`[${lat}, ${lon}]`);
+                            arr.innerHTML += `[${lat}, ${lon}], `;
+                        });
                 }
             });
     }
-
-    console.log(nodesTab);
-    arr.innerHTML = `<b>zestaw węzłów lini:</b><br/><br/>${nodesTab}`;
 };
 
 
