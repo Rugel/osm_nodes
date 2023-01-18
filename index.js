@@ -1,12 +1,13 @@
 
 const root = document.getElementById('root')
-root.innerHTML = '<h1>Generator zestawu węzłów "geo" z OSM</h1><input id="input" type="text"/><button id="ok">OK</button><div id="arr"><b>zestaw węzłów lini: <br/></b><br/></div>';
+root.innerHTML = '<h1>Generator zestawu węzłów "geo" z OSM</h1><input id="input" type="text"/><button id="ok">OK</button><div id="arr"></div>';
 const arr = document.getElementById('arr');
 document.getElementById("ok").addEventListener('click', getData);
 let nodesIdTab = [];
-//let nodesTab = [];
+let nodesTab = [];
 
 function getData() {
+    arr.innerHTML = `<br/><b>zestaw węzłów lini: <br/></b>`;
     const idsData = document.getElementById("input").value;
     const tabData = idsData.split(' ');
     let nodeId;
@@ -26,13 +27,18 @@ function getData() {
                             let node = xmldoc.getElementsByTagName('node')[0];
                             let lat = node.getAttribute('lat');
                             let lon = node.getAttribute('lon');
-                           // nodesTab.push(`[${lat}, ${lon}]`);
+                           nodesTab.push(`[${lat}, ${lon}]`);
                             arr.innerHTML += `[${lat}, ${lon}], `;
                         });
                 }
+
             });
     }
+  setTimeout( ()=> {nodesTab.sort();
+    let filNodesTab = nodesTab.filter((item, index) => nodesTab.indexOf(item)===index);
+arr.innerHTML += `<br/><br/>posortowana tablica: <br/>${filNodesTab}`},2000);
 };
+
 
 
 
