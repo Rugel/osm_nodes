@@ -1,7 +1,24 @@
-input{
-    width: 420px;
+#root {
+    text-align: center;
 }
-#arr{
-    padding: 10%;
+
+input {
+    width: 90vw;
+    max-width: 900px;
+    padding: 5px;
+    margin: 5px;
+}
+
+#arr {
+    padding: 30px;
     font-weight: 600;
+}
+
+#ok {
+    padding: 5px;
+    margin: 10px;
+}
+
+#header {
+    display: inline-block;
 }

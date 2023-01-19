@@ -1,15 +1,18 @@
 
 const root = document.getElementById('root')
-root.innerHTML = '<h1>Generator zestawu węzłów "geo" z OSM</h1><input id="input" type="text"/><button id="ok">OK</button><div id="arr"></div>';
+root.innerHTML = `<div id="header"><h1>Generator zestawu węzłów "geo" z OSM</h1><a href="https://www.openstreetmap.org/#map=10/50.7799/20.7947" target="blank">Mapy OSM</a><br/><input id="input" type="text" placeholder='id jednej lub kilku lini odzielonych spacjami'/><input id="point" type="text" placeholder='współrzędne punktu według którego będą sortowane koordynaty (np. "52.3647888 22.4642777" - dwie liczby oddzielone jedynie spacją)'/><br/><button id="ok">OK</button></div><div id="arr"></div>`;
 const arr = document.getElementById('arr');
 document.getElementById("ok").addEventListener('click', getData);
 let nodesIdTab = [];
 let nodesTab = [];
-const stPoint = {lat:52.1421189, lon:22.2503961};
+let stPoint = {lat:0.0, lon:0.0};
 
 function getData() {
-    arr.innerHTML = `<br/><b>zestaw węzłów lini: <br/></b>`;
+    arr.innerHTML = `<br/><b>zestaw węzłów lini w losowej kolejności: <br/><br/></b>`;
     const idsData = document.getElementById("input").value;
+    const pointV = document.getElementById('point').value;
+    const pTab = pointV.split(" ");
+    stPoint = {lat:pTab[0], lon:pTab[1]};
     const tabData = idsData.split(' ');
     let nodeId;
     for (let i = 0; i < tabData.length; i++) {
@@ -43,7 +46,7 @@ function getData() {
                                 let distanceB = Math.sqrt(Math.abs((b[0]-stPoint.lat) * (b[0]-stPoint.lat) + (b[1]-stPoint.lon) * (b[1]-stPoint.lon)));
                             return  distanceA - distanceB};
       let sortTab = twoDimTab.sort(sortfun);
-      arr.innerHTML += `<br/><br/>posortowana tablica węzłów:<br/>`
+      arr.innerHTML += `<br/><br/>posortowany zestaw węzłów względem punktu "${stPoint.lat}, ${stPoint.lon}":<br/><br/>`
       for(let m=0; m<sortTab.length; m++){
         arr.innerHTML += `[${sortTab[m]}], `}
     }, 5000);
