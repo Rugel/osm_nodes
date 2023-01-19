@@ -46,7 +46,7 @@ function getData() {
                                 let distanceB = Math.sqrt(Math.abs((b[0]-stPoint.lat) * (b[0]-stPoint.lat) + (b[1]-stPoint.lon) * (b[1]-stPoint.lon)));
                             return  distanceA - distanceB};
       let sortTab = twoDimTab.sort(sortfun);
-      arr.innerHTML += `<br/><br/>posortowany zestaw węzłów względem punktu "${stPoint.lat}, ${stPoint.lon}":<br/><br/>`
+      arr.innerHTML += `<br/><br/>posortowany zestaw węzłów względem punktu "${stPoint.lat}, ${stPoint.lon}":<br/><br/>`;
       for(let m=0; m<sortTab.length; m++){
         arr.innerHTML += `[${sortTab[m]}], `}
     }, 5000);
